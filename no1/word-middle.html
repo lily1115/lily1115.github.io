@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多行文字居中</title>
+    <style>
+        *{margin:0;padding:0;}
+        body {
+            text-align: center;
+        }
+        .box {
+          height:200px;
+          width:300px;
+          background:pink;
+          margin:30px auto;
+          font-size:0;
+          transition: all ease 1.2s;
+        }
+        .box:after{
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+            margin-left: -1rem;
+        }
+        .text{
+          display: inline-block;
+          font-size:16px;
+          vertical-align: middle;/* 保证文字垂直居中 */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <p class="text">
+        多行文本未知高度垂直居中-by 一丝多行文本未知高度垂直居中-by 一丝多行文本未知高度垂直居中-by 一丝
+        </p>
+    </div>
+    <button id="btn"good>变高</button>
+    <script>
+        $ = function (el) {
+            return document.querySelector(el);
+        };
+        $('#btn').addEventListener('click', function () {
+            var cur = parseInt(getStyle($('.box'), 'height'));
+            $('.box').style.height = cur + 25 + 'px';
+        }, false);
+        function getStyle(obj, attr) {
+            return window.getComputedStyle?window.getComputedStyle(obj, false)[attr]:
+            obj.currenStyle[attr];
+        }
+    </script>
+</body>
+</html>

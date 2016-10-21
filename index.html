@@ -2,9 +2,134 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>日常练习</title>
+	<style>
+/*	reset*/
+	*{ margin:0; padding:0;}
+	a{
+		color: #666;text-decoration: none;
+	}
+	li{list-style: none;}
+
+	.shadow{border:1px solid #e6e6e6;border-radius:5px;box-shadow:0px 2px 3px #ececec;background: #fff;}
+
+
+		.wrap{
+			width: 500px;
+			padding: 10px 0;
+			margin: 40px auto;
+			overflow: hidden;
+			border-radius: 6px;
+			border: 1px solid #ccc;
+		}
+		.wrap ul{margin-left: 0;}
+		ul li{
+			line-height: 40px;
+			border-bottom: 1px solid #f2f2f2;
+		}
+		ul li h1 a{
+			padding-left: 10px;
+			display: block;
+			transition:all 1s;
+		}
+		ul li h1 a:hover{text-indent: 28px;
+
+			padding-left: 0;
+			border-left: 4px solid green;
+			color: green;
+			background-color: #f9f9f9;
+		}
+		.list li dl{display: none;margin-left: 30px;}
+		.list li dl dd a:hover{display: inline-block;border-bottom: 1px solid #ccc;  color:green;}
+		.resume{width: 500px; margin: 10px auto;}
+	</style>
+
 </head>
 <body>
-	<h1>Hello World!</h1>
+	<div class="wrap shadow">
+		<ul id="ul" class="list">
+			
+		</ul>
+	</div>
+	<script>
+	var str = '';
+	var data = [
+		[
+			{title:'常用代码'},
+			{url:'no1/call-apply.js',title:'模拟栈与队列，call/apply的优雅写法'},
+			//{url:'no1/Sudoku.html',title:'九宫格'},
+			{url:'no1/fitMobile.js',title:'移动端REM适配'},
+			{url:'no1/newPriciple.js',title:'new的替代'},
+			{url:'no1/word-middle.html',title:'多行文字居中'},
+			{url:'no1/getGlobal.js',title:'在Node和浏览器环境获取全局变量的模式'},
+			{url:'no1/rtwidget.html',title:'双飞翼布局'}
+		],
+		[
+			{title:'JS代码'},
+			{url:'no2/2.1.html',title:'跟随鼠标移动（大图展示）'},
+			{url:'no2/2.2.html',title:'自动轮播广告（面向对象版）'},
+			{url:'no2/2.3.html',title:'带Loading效果的图片切换'},
+			{url:'no2/2.4.html',title:'等级星投票效果'},
+			{url:'#',title:'等级星投票效果'}
+		],
+		[
+			{title:'表单常用代码'},
+			{url:'Js-Snippets/No4/4.15/index.html',title:'弹出层'},
+			{url:'no4/4.2.html',title:'去除字符串两边的空格、获取焦点提示取消、密码强度实时验证'},
+			{url:'#',title:'待添加'},
+			{url:'#',title:'待添加'}
+		],
+		[
+			{title:'其他'},
+			{url:'no3/3.1.html',title:'canvas绘制时钟'},
+			{url:'#',title:'待添加'},
+			{url:'#',title:'待添加'}
+		]
+	];
+
+	for (var i = 0; i < data.length; i++) {
+		var item = data[i];
+		var sub = '';
+		for (var j = 0; j < item.length; j++) {
+			var son = item[j];
+			if (j === 0) {
+				sub += '<li><h1><a href="javascript:;">'+son.title+'</a></h1><dl>'
+			}else{
+				sub += '<dd><a href="'+son.url+'" target="_blank">'+son.title+'</a></dd>'
+			}
+			if (j === item.length - 1) {
+				sub += '</dl></li>'
+			};
+		};
+		str += sub;
+	};
+
+	$ = function (el) {
+		return document.querySelector(el);
+	}
+	$('#ul').innerHTML = str;
+	var h1 = document.getElementsByTagName('h1');
+	var dl = document.getElementsByTagName('dl');
+	var temp = -1;
+	var bool = false;
+	for (var i = 0; i < h1.length; i++) {
+		h1[i].index = i;
+		h1[i].onclick = function () {
+			console.log(this.index);
+			for (var i = 0; i < h1.length; i++) {
+				dl[i].style.display = 'none';
+			};
+			if (temp === this.index && bool) {
+				dl[this.index].style.display = 'none';
+				bool = false;
+			}else{
+				dl[this.index].style.display = 'block';
+				bool = true;
+			}
+			temp = this.index;
+		}
+	};
+	
+	</script>
 </body>
 </html>
