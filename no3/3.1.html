@@ -1,151 +1,91 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>canvas绘制时钟</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <style>
-		.c{background-color:#f1f1f1;margin:0 auto;}
-    </style>
+	<meta charset="UTF-8">
+	<title>表单验证</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<style>
+		.box{
+			width: 800px;
+			margin: 20px auto;
+		}
+	</style>
 </head>
 <body>
-<canvas id="canvas" class="c" width="500" height="500"></canvas>
+	<div class="box">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+		    <label for="inputIdcard3" class="col-sm-2 control-label">身份证号</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="inputIdcard3" placeholder="Idcard">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">邮箱</label>
+		    <div class="col-sm-10">
+		      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-2 control-label">密码:</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="inputPassword4" class="col-sm-2 control-label">确认密码:</label>
+		    <div class="col-sm-10">
+		      <input type="password" class="form-control" id="inputPassword4" placeholder="再次输入密码">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <div class="checkbox">
+		        <label>
+		          <input type="checkbox">记住我
+		        </label>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default">Sign in</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <!-- integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous" -->
 <script>
-	(function(){
-	    var canvas = document.getElementById('canvas');
-	    var ctx = canvas.getContext('2d');
-	    var h,m,s;
-		function now(){
-	    	var d = new Date();
-	        h = d.getHours();
-	        m = d.getMinutes();
-	        s = d.getSeconds();
-	        h += m/60;
-	        h = h > 12 ? h - 12 : h;
-		}
-	    // 表盘
-	    function drawBase(){
-	        ctx.beginPath();
-	        ctx.lineWidth = 10;
-	        ctx.strokeStyle = '#99ccff';
-	        ctx.arc(250, 250, 200, 0, 360, false);
-	        ctx.closePath();
-	        ctx.stroke();
-	    }
-	    function drawNumbers(){
-	        var angle = 0,
-	        	nWidth = 0;
-	        ctx.save();
-	        ctx.translate(250, 250);
-			ctx.font="19px Arial";
-	        for(var i = 1; i <= 12; i++){
-	        	if(!(i % 3)){
-	        		angle = Math.PI / 6 * (i - 3);
-		        	nWidth = ctx.measureText(i).width;
-		        	ctx.fillText(i, Math.cos(angle) * 150 - nWidth/2,  Math.sin(angle) * 150 + nWidth/2);
-	        	}
-	        }
-	        ctx.restore();
-	    }
-	    // 时针刻度
-	    function drawHourDegree(){
-	        for(var i = 0; i < 12; i++){
-	        	ctx.save();
-	        	ctx.lineWidth = 5;
-	        	ctx.translate(250, 250);
-	        	ctx.rotate(i * 30 * Math.PI / 180);
-	        	ctx.beginPath();
-	        	ctx.moveTo(0, -190);
-	        	ctx.lineTo(0, -170);
-	        	ctx.strokeStyle = '#333';
-	        	ctx.closePath();
-	        	ctx.stroke();
-	        	ctx.restore();
-	        }
-	    }
-	    // 分针盘
-	    function drawMinDegree(){
-	        for(var i = 0; i < 60; i++){
-	        	ctx.save();
-	        	ctx.translate(250, 250);
-	        	ctx.rotate(i * 6 * Math.PI / 180);
-	        	ctx.beginPath();
-	        	ctx.moveTo(0, -190);
-	        	ctx.lineWidth = 5;
-	        	ctx.lineTo(0, -180);
-	        	ctx.strokeStyle = '#999';
-	        	ctx.closePath();
-	        	ctx.stroke();
-	        	ctx.restore();
-	        }
-	    }
-	    // 时针
-	    function drawHour(){
-	        ctx.save();
-	        ctx.translate(250, 250);
-	        ctx.rotate(h * 30 * Math.PI / 180); // 每小时转过12度
-	        ctx.beginPath();
-	        ctx.moveTo(0, -110);
-	        ctx.lineTo(0, 30);
-	        ctx.lineWidth = 9;
-	        ctx.strokeStyle = '#333';
-	        ctx.closePath();
-	        ctx.stroke();
-	        ctx.restore();
-	    }
-	    // 分针
-	    function drawMin(){
-	        ctx.save();
-	        ctx.translate(250, 250);
-	        ctx.rotate(m * 6 * Math.PI / 180);
-	        ctx.beginPath();
-	        ctx.moveTo(0, -130);
-	        ctx.lineWidth = 7;
-	        ctx.lineTo(0, 25);
-	        ctx.strokeStyle = 'green';
-	        ctx.closePath();
-	        ctx.stroke();
-	        ctx.restore();
-	    }
-	    // 中间圆点
-	    function drawMiddle(){
-	        ctx.beginPath();
-	        ctx.arc(250, 250, 10, 0, 360, false);
-	        ctx.closePath();
-	        ctx.fill();
-	    }
-	    // 秒钟
-	    function drawSecond(){
-    	    ctx.save();
-    	    ctx.translate(250, 250);
-		    ctx.rotate(s * 6 * Math.PI / 180); // 6 每秒转过的角度
-    	    ctx.beginPath();
-    	    ctx.moveTo(0, -150);
-        	ctx.lineWidth = 3;
-        	ctx.strokeStyle = 'red';
-    	    ctx.lineTo(0, 25);
-			ctx.closePath();
-	    	ctx.stroke();
-			ctx.restore();
-	    }
-		function clock(){
-			ctx.clearRect(0, 0, 500, 500);
-			now();
-		    drawBase();
-		    drawNumbers();
-		    drawMinDegree();
-		    drawHourDegree();
-		    drawHour();
-		    drawMin();
-		    drawSecond();
-		    drawMiddle();
-		}
-		clock();
-		setInterval(function(){
-		    clock();
-		}, 1000);
-	}());
+	$('#inputIdcard3').blur(function (){
+		if (this.value) {
+
+		};
+	})
+
+/** 验证邮箱 **/ 
+function validateEmailFiled(obj,param,description){ 
+	if(param.errorCount == 0 && obj.val().length > 0){ 
+		var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/ if(!reg.test(obj.val())){
+			param.errorCount = param.errorCount + 1; floatNotify.simple(description); } 
+			}else{ param.errorCount = param.errorCount + 1; floatNotify.simple(description); 
+			} 
+	}
+
+
+
+	/** 倒计时函数 **/ 
+	function mycountDown(obj,second){ // 如果秒数还是大于0，则表示倒计时还没结束 
+		if(second>=0){ // 按钮置为不可点击状态 
+			$(obj).attr('disabled', true) // 按钮里的内容呈现倒计时状态 
+			$(obj).val("发送短信中"+'('+second+')') // 时间减一 second--; // 一秒后重复执行 setTimeout(function(){mycountDown(obj,second);},1000); 
+		}else{// 否则，按钮重置为初始状态 // 按钮置未可点击状态 
+			$(obj).attr('disabled', false) // 按钮里的内容恢复初始状态 
+			$(obj).val("获取手机验证码") 
+		} 
+	}
 </script>
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>实践题 - 选项卡</title>
+    <style type="text/css">
+     /* CSS样式制作 */  
+     div,ul,li{margin:0;padding:0;}
+    .box{
+        width:100%;
+    }
+    .tab{
+        padding-left:1px;
+        width:100%;
+        overflow:hidden;
+    }
+    .tab li{
+        list-style:none;
+        float:left;
+        margin-left:-1px;
+        width:20%;
+        height:40px;
+        line-height:40px;
+        text-align:center;
+        border:1px solid #ccc; 
+    }
+    .tab li.cur{
+        border-top:2px solid brown;
+        height:43px;
+        background-color:#fff;
+        border-bottom:0;
+    }
+    .tabCon{
+        margin-top:-3px;
+        line-height:1.5;
+        border:1px solid #ccc;
+        border-top:2px solid brown;
+    }
+    .tabCon div{
+        padding:10px;
+        display:none;
+    }
+    .tabCon div.cur{
+        display:block;
+    } 
+    </style>
+    <script type="text/javascript">
+    window.onload = function (){
+        tab()
+    }
+    function tab(){
+       // JS实现选项卡切换
+        var oul = document.getElementById('tab')
+        var ali = oul.getElementsByTagName('li')
+    
+        var oDiv = document.getElementById('tabCon')
+        var aDiv = oDiv.getElementsByTagName('div')
+    // document.write(oli)
+        for(var i = 0;i<ali.length;i++){
+            ali[i].index = i
+            ali[i].onclick = function () {
+                for (var j = 0; j < ali.length; j++) {
+                    ali[j].className = ''
+                    aDiv[j].className = ''
+                };
+                ali[this.index].className = 'cur'
+                aDiv[this.index].className = 'cur'
+            } 
+        }
+    }
+    
+    </script>
+ 
+</head>
+<body>
+<!-- HTML页面布局 -->
+<div class="box">
+<ul class="tab" id="tab">
+    <li class="cur">房产</li>
+    <li>家居</li>
+    <li>二手房</li>
+</ul>
+<div class="tabCon" id="tabCon">
+   <div class="cur">
+    <p>275万购昌平邻铁三居 总价20万买一居</p>
+    <p>275万购昌平邻铁三居 总价20万买一居</p>
+    <p>275万购昌平邻铁三居 总价20万买一居</p>
+    <p>275万购昌平邻铁三居 总价20万买一居</p>
+   </div>
+   <div>
+    <p>40平出租屋大改造 美少女的混搭小窝</p>
+    <p>40平出租屋大改造 美少女的混搭小窝</p>
+    <p>40平出租屋大改造 美少女的混搭小窝</p>
+    <p>40平出租屋大改造 美少女的混搭小窝</p>
+   </div>
+   <div>
+    <p>通州豪华3居260万 二环稀缺2居250w甩</p>
+    <p>通州豪华3居260万 二环稀缺2居250w甩</p>
+    <p>通州豪华3居260万 二环稀缺2居250w甩</p>
+    <p>通州豪华3居260万 二环稀缺2居250w甩</p>
+   </div>
+</div>
+ </div>
+</body>
+</html>
