@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>文本两端对齐</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- 要点：
+        1. inline-block使用及ie兼容
+        2. 末行填充justify_fix元素
+        3. ie兼容：text-justify:distribute-all-lines; -->
+        <style>
+            .box{
+                width:50%; 
+                padding:20px; 
+                margin:20px auto; 
+                background-color:#f0f3f9; 
+                text-align:justify;                
+                text-justify:distribute-all-lines;/*ie6-8*/
+            }
+            .list{
+                width:120px; 
+                display:inline-block;
+                *display: inline; 
+                *zoom:1;
+                padding-bottom:20px; 
+                text-align:center; 
+                vertical-align:top;
+            }
+            .justify_fix{
+                display:inline-block; 
+                *display: inline; 
+                *zoom:1; width:100%; 
+                height:0; 
+                overflow:hidden;
+            }
+
+            .list_head{
+                height: 50px;
+                width: 50px;
+                background-color: red;
+                float: left;
+            }
+
+            .list_content{
+                width: 70px;
+                height: 50px;
+                float: left;
+            }
+            .clearfix:after {
+                content: "."; 
+                display: block; 
+                height: 0; 
+                clear: both; 
+                visibility: hidden;
+            }
+            * html .clearfix {height: 1%;}
+        </style>
+
+    </head>
+    <body>
+        <div class="box">
+            <div class="list clearfix">
+                <div class="list_head"></div>
+                <div class="list_content">这是内容</div>
+            </div>
+            <div class="list clearfix">
+                <div class="list_head"></div>
+                <div class="list_content">这是内容</div>
+            </div>
+
+            <span class="justify_fix"></span>
+        </div>
+        <div class="box">
+            <div class="list clearfix">
+                <div class="list_head"></div>
+                <div class="list_content">这是内容</div>
+            </div>
+            <div class="list clearfix">
+                <div class="list_head"></div>
+                <div class="list_content">这是内容</div>
+            </div>
+            <div class="list clearfix">
+                <div class="list_head"></div>
+                <div class="list_content">这是内容</div>
+            </div>
+            <div class="list clearfix">
+                <div class="list_head"></div>
+                <div class="list_content">这是内容</div>
+            </div>
+            <span class="justify_fix"></span>
+        </div>
+
+    </body>
+</html>

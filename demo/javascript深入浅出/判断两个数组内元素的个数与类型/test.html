@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>判断两个数组</title>
+</head>
+<body>
+<!-- 请在index.html文件中，编写arraysSimilar函数，实现判断传入的两个数组是否相似。具体需求：
+
+1. 数组中的成员类型相同，顺序可以不同。例如[1, true] 与 [false, 2]是相似的。
+
+2. 数组的长度一致。
+
+3. 类型的判断范围，需要区分:String, Boolean, Number, undefined, null, 函数，日期, window.
+
+当以上全部满足，则返回"判定结果:通过"，否则返回"判定结果:不通过"。
+ -->
+<script>
+// 不兼容IE6、7、8
+function type(a){
+    return  a === null ? '[object Null]':Object.prototype.toString.apply(a); //hack ie678
+}
+function arraysSimilar(arr1, arr2){
+    if(!Array.isArray(arr1) || !Array.isArray(arr2) ||arr1.length!=arr2.length){return false;}
+    var arr3=[];
+    var arr4=[];
+    var x;
+    for(var i in arr1){
+        arr3.push(type(arr1[i]));
+        arr4.push(type(arr2[i]));
+    }
+    if(arr3.sort().toString()==arr4.sort().toString()){
+        return true;
+    }else{
+        return false;
+    }
+}
+ 
+
+
+
+    
+
+</script>
+
+ <script src="testData.js"></script>
+</body>
+</html>

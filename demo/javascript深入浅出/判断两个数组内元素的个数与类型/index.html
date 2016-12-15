@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>判断两个数组</title>
+</head>
+<body>
+<!-- 请在index.html文件中，编写arraysSimilar函数，实现判断传入的两个数组是否相似。具体需求：
+
+1. 数组中的成员类型相同，顺序可以不同。例如[1, true] 与 [false, 2]是相似的。
+
+2. 数组的长度一致。
+
+3. 类型的判断范围，需要区分:String, Boolean, Number, undefined, null, 函数，日期, window.
+
+当以上全部满足，则返回"判定结果:通过"，否则返回"判定结果:不通过"。
+ -->
+<script>
+  function arraysSimilar(arr1, arr2) {
+    if (arr1 instanceof Array && arr2 instanceof Array) {
+      var len = arr1.length
+      var len2 = arr2.length
+      var key1 = []
+      var key2 = []
+      if (len != len2) {
+        return false
+      }else {
+        if (len) {
+          for (var i = 0; i < len; i++) {
+            var item1 = arr1[i]
+            var itemFirst = typeOf(item1)
+            if (key1.join().indexOf(itemFirst)) {
+              key1.push(itemFirst)
+            };
+            
+            var item2 = arr2[i]
+            var itemSecond = typeOf(item2)
+            if (key2.join().indexOf(itemSecond)) {
+              key2.push(itemSecond)
+            }   
+          }
+          var key1 = key1.sort()
+          var key2 = key2.sort()
+          if (key1.join() == key2.join()) {
+            return true
+          }else{
+            return false
+          }
+        }else{
+          return true
+        }
+      }
+    }else{
+      return false
+    }
+  }
+
+ 
+    function typeOf (item) {
+      var r;
+      if (item === null) r = null;
+      else if (item instanceof Array) r = 'array'
+      else if (item instanceof Date) r = 'date'
+      else if (item === window) r = 'window'
+      else r = typeof item
+      return r
+    }
+
+
+
+    
+
+</script>
+
+ <script src="testData.js"></script>
+</body>
+</html>
