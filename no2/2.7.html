@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>拖拽</title>
+  <style>
+  *{
+    padding: 0;
+    margin: 0;
+  }
+    #box{
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+
+  <script>
+    function drag (elementId) {
+      var element = document.getElementById(elementId)
+      var position = {
+        offsetX: 0,
+        offsetY: 0,
+        state: 0  // 是否处理拖拽状态 1表示正在拖拽 0表示释放
+      }
+      function getEvent (event) {
+        return event || window.event
+      }
+      element.addEventListener('mousedown', function (event) {
+        var e = getEvent(event)
+        position.offsetX = e.offsetX;
+        position.offsetY = e.offsetY;
+        position.state = 1;
+      }, false)
+
+      document.addEventListener('mousemove', function (event) {
+        var e = getEvent(event)
+        if (position.state) {
+          position.endX = e.clientX
+          position.endY = e.clientY
+          element.style.position = 'absolute'
+          element.style.top = position.endY - position.offsetY + 'px'
+          element.style.left = position.endX - position.offsetX + 'px'
+        }
+      }, false)
+
+      element.addEventListener('mouseup', function (event) {
+        position.state = 0
+      }, false)
+    }
+    // drag('box')
+  </script>
+</body>
+</html>

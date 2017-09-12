@@ -71,7 +71,7 @@
 			{url:'no2/2.3.html',title:'带Loading效果的图片切换'},
 			{url:'no2/2.4.html',title:'等级星投票效果'},
 			{url:'no2/2.5.html',title:'tab标签切换'},
-			{url:'#',title:'等级星投票效果'}
+			{url:'no2/2.7.html',title:'手写简易拖拽效果'}
 		],
 		[
 			{title:'表单常用代码'},
@@ -118,9 +118,9 @@
 		h1[i].index = i;
 		h1[i].onclick = function () {
 			console.log(this.index);
-			for (var i = 0; i < h1.length; i++) {
-				dl[i].style.display = 'none';
-			};
+			// for (var i = 0; i < h1.length; i++) {
+			// 	dl[i].style.display = 'none';
+			// };
 			if (temp === this.index && bool) {
 				dl[this.index].style.display = 'none';
 				bool = false;
