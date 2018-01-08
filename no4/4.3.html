@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>美化上传按钮</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    form{
+      margin: 20px auto;
+      width: 600px;
+    }
+    div{
+      margin-bottom: 20px;
+    }
+    /* 除了设宽高为0，有人给出隐藏input但不让它失效的其他方法： */
+    /* input {
+        position: absolute;
+        opacity: 0.01;
+    } */
+
+    /* 设成0.1px而不是0px，因为在某些浏览器下0宽高将会让<input>元素被tab键忽略。而position: absolute的目的是不干扰随后元素的位置。 */
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px; 
+    opacity: 0; 
+    overflow: hidden; 
+    position: absolute; 
+    z-index: -1;
+  }
+  .inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+  }
+  .inputfile:focus + label,
+  .inputfile + label:hover {
+      background-color: red;
+  }
+  .inputfile:focus + label,
+  .inputfile.has-focus + label {
+    outline: 1px dotted #000; 
+    outline: -webkit-focus-ring-color auto 5px;
+    pointer-events: none;
+  }
+  </style>
+</head>
+<body>
+  <form action="">
+    <div>
+        用户名: <input type="text">
+    </div>
+    <div>
+      <input type="file" name="file" id="file" data-multiple-caption="{count} files selected" class="inputfile" multiple />
+      <label for="file">Choose a file</label>
+    </div>
+  </form>
+
+  <script>
+    var inputs = document.querySelectorAll( '.inputfile' );
+    Array.prototype.forEach.call( inputs, function( input ) {
+      var label = input.nextElementSibling,
+      labelVal = label.innerHTML;   
+      console.log('label', label, labelVal)
+      input.addEventListener( 'change', function( e ) { 
+        var fileName = '';
+        if( this.files && this.files.length > 1 )        
+          fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length ); 
+        else
+          fileName = e.target.value.split( '\\' ).pop();
+
+        if( fileName )
+          label.innerHTML = fileName;
+          else label.innerHTML = labelVal;  
+        })
+        input.addEventListener( 'focus', function() {
+            input.classList.add( 'has-focus' );
+        });
+        input.addEventListener( 'blur', function() {
+            input.classList.remove( 'has-focus' );
+        })
+
+    })
+  
+  </script>
+</body>
+</html>
